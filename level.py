@@ -1,4 +1,4 @@
-from levels import *
+from level import *
 
 
 class Level:

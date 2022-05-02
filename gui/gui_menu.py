@@ -1,5 +1,6 @@
+import sys
 import pygame
-from gui import GUI
+from .gui import GUI
 
 
 class GUIMenu(GUI):
@@ -17,40 +18,35 @@ class GUIMenu(GUI):
         gap = self.size_h1 + self.size_h2
 
         # Menu title:
-        menu_title = self.h1.render(self.title, True, self.color_white)
-        menu_title_rect = menu_title.get_rect()
-        menu_title_rect.midtop = (self.width // 2, 0 + self.size_par)
+        header = self.create_header(self.title)
 
         # Controls:
-        controls_footer = self.span.render(
-            "Use UP/DOWN ARROW to navigate, press ENTER to select.", True, self.color_gray
-        )
-        controls_footer_rect = controls_footer.get_rect()
-        controls_footer_rect.midbottom = (self.width // 2, self.height)
+        footer = self.create_footer("Use UP/DOWN ARROW to navigate, press ENTER to select.")
 
         run = True
         while run:
-            self.clock.tick(self.fps)
-            self.WIN.blit(source=self.background, dest=(0, 0))
+            self.refresh()
 
             # Display menu title:
-            self.WIN.blit(menu_title, menu_title_rect)
+            self.WIN.blit(*header)
 
             # Display menu
             for pos, item in enumerate(self.menu_items):
-                menu_item = self.h1.render(
-                    item['name'].upper(), True, self.color_white if index == pos else self.color_gray
-                )
+                if index == pos:
+                    menu_item = self.h1.render(f'- {item["name"].upper()} -', True, self.color_white)
+                else:
+                    menu_item = self.h1.render(item["name"].upper(), True, self.color_gray)
+
                 menu_item_rect = menu_item.get_rect()
                 menu_item_rect.midtop = (self.width // 2, h_start + pos * gap)
                 self.WIN.blit(menu_item, menu_item_rect)
 
             # Display controls:
-            self.WIN.blit(controls_footer, controls_footer_rect)
+            self.WIN.blit(*footer)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    run = False
+                    sys.exit()
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_DOWN and index < len(self.menu_items) - 1:
@@ -61,7 +57,4 @@ class GUIMenu(GUI):
                         self.menu_items[index]['action']()
                         index = 0
 
-            try:
-                pygame.display.update()
-            except pygame.error:
-                run = False
+            pygame.display.update()
