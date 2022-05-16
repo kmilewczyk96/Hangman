@@ -12,7 +12,7 @@ class GUI:
             size=(self.width, self.height),
             flags=pygame.FULLSCREEN if fullscreen else False
         )
-        self.fps = 30
+        self.fps = 60
         self.clock = pygame.time.Clock()
         # Styles:
         self.background = pygame.image.load("resources/chalkboard.jpg")
@@ -26,10 +26,10 @@ class GUI:
         self.size_par = width // 40
         self.size_span = width // 60
         # Font objects init:
-        self.h1 = pygame.font.SysFont("monospace", self.size_h1)
-        self.h2 = pygame.font.SysFont("monospace", self.size_h2)
-        self.par = pygame.font.SysFont("monospace", self.size_par)
-        self.span = pygame.font.SysFont("monospace", self.size_span)
+        self.h1 = pygame.font.Font("resources/fonts/SourceCodePro-Regular.ttf", self.size_h1)
+        self.h2 = pygame.font.Font("resources/fonts/SourceCodePro-Regular.ttf", self.size_h2)
+        self.par = pygame.font.Font("resources/fonts/SourceCodePro-Regular.ttf", self.size_par)
+        self.span = pygame.font.Font("resources/fonts/SourceCodePro-Regular.ttf", self.size_span)
 
     def refresh(self):
         self.clock.tick(self.fps)

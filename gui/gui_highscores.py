@@ -4,14 +4,14 @@ from .gui import GUI
 
 
 class GUIHighscores(GUI):
-    def __init__(self, highscores: list):
+    def __init__(self, context):
         super().__init__()
-        self.highscores = highscores
+        self.context = context
 
-    def display_highscores(self):
+    def gui_highscores(self):
         # Highscore list items positioning:
         h_start = self.height // 2 - \
-                  (self.size_h1 * len(self.highscores) + self.size_par * (len(self.highscores) - 2)) // 2
+                  (self.size_h1 * len(self.context.highscores) + self.size_par * (len(self.context.highscores) - 2)) // 2
         gap = self.size_h1 + self.size_par
 
         # Highscores header:
@@ -19,7 +19,7 @@ class GUIHighscores(GUI):
 
         # Highscore list:
         records = []
-        for pos, player in enumerate(self.highscores):
+        for pos, player in enumerate(self.context.highscores):
             menu_item = self.h1.render(
                 f'{pos + 1}.{player["name"].upper()} {str(player["score"]).rjust(9)}', True, self.color_white
             )
@@ -54,7 +54,7 @@ class GUIHighscores(GUI):
 
             pygame.display.update()
 
-    def enter_name(self):
+    def gui_enter_name(self):
         name_letters = []
 
         # Request header:
@@ -82,16 +82,15 @@ class GUIHighscores(GUI):
 
             # Display controls:
             self.WIN.blit(*footer)
-
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN and len(name_letters) == 3:
-                        run = False
+                        return name_letters
                     if event.key == pygame.K_ESCAPE:
-                        run = False
+                        pass
                     if event.key in range(97, 123) and len(name_letters) < 3:
                         letter = pygame.key.name(event.key).upper()
                         name_letters.append(letter)
@@ -99,5 +98,3 @@ class GUIHighscores(GUI):
                         name_letters.pop()
 
             pygame.display.update()
-
-        self.display_highscores()

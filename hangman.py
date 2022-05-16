@@ -1,11 +1,14 @@
+from gui.gui_game import GUIGame
 from chance import ChanceError
 
 
-class Hangman:
-    def __init__(self, word, score, chance):
+class Hangman(GUIGame):
+    def __init__(self, word, chance, score, highscores):
+        super().__init__(context=self)
         self.word = word
-        self.score = score
         self.chances = chance
+        self.score = score
+        self.highscores = highscores
 
         self.word_to_guess = ...
         self.hidden_word = ...
@@ -14,16 +17,12 @@ class Hangman:
         self.used_letters = ...
         self.missed = ...
 
-    def start_game(self):
-        self.score.reset_score()
-        self.get_next_word()
-
     def get_next_word(self):
         self.chances.reset_chances()
         self.word_to_guess = self.word.get_random_word()
         self.hidden_word = ['_' if letter not in ('-', ' ') else letter for letter in self.word_to_guess]
         self.aesthetic_underscore = self.hidden_word.copy()
-        self.left_to_guess = len(self.word_to_guess)
+        self.left_to_guess = self.hidden_word.count('_')
         self.used_letters = []
         self.missed = []
 
@@ -41,12 +40,31 @@ class Hangman:
             try:
                 self.chances.decrease_chances()
             except ChanceError:
-                self.game_over()
-                return True
+                return "GAME OVER"
 
         if self.left_to_guess == 0:
             self.score.increase_score()
+            self.gui_show_word()
             self.get_next_word()
 
+    def run_game(self):
+        self.score.reset_score()
+        self.get_next_word()
+
+        self.gui_game()
+        self.game_over()
+
     def game_over(self):
-        pass
+        self.gui_show_word()
+        highscores_position = self.highscores.check_if_highscore(self.score.current_score)
+
+        if highscores_position is not None:
+            player_name = self.highscores.get_name()
+            if player_name:
+                self.highscores.update_highscores(
+                    pos=highscores_position,
+                    name=player_name,
+                    score=self.score.current_score
+                )
+
+                self.highscores.gui_highscores()

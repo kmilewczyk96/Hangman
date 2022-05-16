@@ -54,7 +54,6 @@ class GUIMenu(GUI):
                     if event.key == pygame.K_UP and index > 0:
                         index -= 1
                     if event.key == pygame.K_RETURN:
-                        self.menu_items[index]['action']()
-                        index = 0
+                        return index
 
             pygame.display.update()
