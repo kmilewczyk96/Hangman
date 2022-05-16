@@ -5,3 +5,4 @@ class Easy:
 
     def __str__(self):
         return 'easy'
+

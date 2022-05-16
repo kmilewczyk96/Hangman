@@ -5,3 +5,4 @@ class Hard:
 
     def __str__(self):
         return 'hard'
+

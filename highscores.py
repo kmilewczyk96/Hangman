@@ -58,3 +58,4 @@ class Highscores(GUIHighscores):
 
     def display_highscores(self):
         self.gui_highscores()
+

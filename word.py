@@ -51,3 +51,4 @@ class Word:
             else:
                 definition = clean_data["definition"]
                 return definition
+

@@ -29,3 +29,4 @@ if __name__ == '__main__':
     while True:
         index = main_menu.run_menu()
         main_menu.menu_items[index].get('action')()
+

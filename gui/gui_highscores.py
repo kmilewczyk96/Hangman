@@ -98,3 +98,4 @@ class GUIHighscores(GUI):
                         name_letters.pop()
 
             pygame.display.update()
+

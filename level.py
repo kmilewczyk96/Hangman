@@ -13,3 +13,4 @@ class Level:
 
     def get_names(self):
         return [str(level) for level in self.levels]
+

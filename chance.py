@@ -14,3 +14,4 @@ class Chance:
 
     def reset_chances(self):
         self.chances = self.base_chances
+

@@ -57,3 +57,4 @@ class GUIMenu(GUI):
                         return index
 
             pygame.display.update()
+

@@ -122,3 +122,4 @@ class GUIGame(GUI):
                         run = False
 
             pygame.display.update()
+

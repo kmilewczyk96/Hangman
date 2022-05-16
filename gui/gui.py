@@ -48,3 +48,4 @@ class GUI:
         footer_rect.midbottom = (self.width // 2, self.height)
 
         return footer, footer_rect
+

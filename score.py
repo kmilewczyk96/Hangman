@@ -11,3 +11,4 @@ class Score:
     def reset_score(self):
         self.current_score = 0
         self.streak = 0
+

@@ -68,3 +68,4 @@ class Hangman(GUIGame):
                 )
 
                 self.highscores.gui_highscores()
+

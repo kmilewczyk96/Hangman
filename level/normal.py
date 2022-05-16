@@ -5,3 +5,4 @@ class Normal:
 
     def __str__(self):
         return 'normal'
+
