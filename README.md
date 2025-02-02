@@ -6,5 +6,5 @@ Common word game made in Python and it's popular module PyGame.
 
 # Installation:
 1. Create virtual environment
-2. Run "pip install -r requirements.txt"
-3. Run "python main.py"
+2. Run `pip install -r requirements.txt`
+3. Run `python main.py`
